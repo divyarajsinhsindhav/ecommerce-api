@@ -4,9 +4,9 @@ This README provides an overview of the express routes in the project. The route
 
 ## Technologies
 
+- TypeScript
 - Node.js
 - Express.js
-- Custom Middleware for Authentication
 
 ---
 
@@ -50,11 +50,18 @@ The `authMiddleware` function is utilized to protect sensitive routes. Replace `
 
 ---
 
+## Error Middleware
+
+The error middleware is implemented to handle errors that occur during route processing. The middleware is automatically triggered when an error is thrown in the application.
+
+---
+
 ## Usage
 
 1. Ensure all controllers and middleware are properly imported and exported.
 2. Import and mount these routes in your main server file.
 3. Secure the API by configuring the authentication middleware as required.
+4. Test the routes using Postman or a similar tool.
 
 ---
 
@@ -68,4 +75,4 @@ The `authMiddleware` function is utilized to protect sensitive routes. Replace `
 
 ## Conclusion
 
-This documentation summarizes the routing mechanism for the API. Modify and expand the information as needed to ensure clarity and useful details for future development.
+This documentation summarizes the routing mechanism for the API. The routes are categorized based on user roles and provide a clear overview of the functionalities available in the application. For further details, refer to the individual controller functions and middleware implementations.
