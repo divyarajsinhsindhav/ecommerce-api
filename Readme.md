@@ -1,6 +1,6 @@
-# Express API Route Documentation
+# Ecommerce API Documentation
 
-This README provides an overview of the express routes in the project. The routes serve both admin and user functionalities, including product management, order processing, and report generation.
+This README provides an overview of the routes in the project. The routes serve both admin and user functionalities, including product management, order processing, and report generation.
 
 ## Technologies
 
