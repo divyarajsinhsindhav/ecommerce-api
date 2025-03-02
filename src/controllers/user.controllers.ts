@@ -58,3 +58,18 @@ export const viewProducts = async (_req: Request, res: Response, next: NextFunct
         next(error);
     }
 };
+
+// View Single Product
+export const viewProduct = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const product = await Product.findById(req.params.productId);
+        if (!product) {
+            res.status(404).json({ message: "Product not found" });
+            return;
+        }
+
+        res.json(product);
+    } catch (error) {
+        next(error);
+    }
+};
