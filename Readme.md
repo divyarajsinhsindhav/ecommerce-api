@@ -12,35 +12,39 @@ This README provides an overview of the routes in the project. The routes serve 
 
 ## Route Overview
 
-### Admin Routes
+This section categorizes the API endpoints into Admin and User routes. Each endpoint is listed with the HTTP method, route path, any required middleware for authentication, the corresponding controller function that handles the request, and a brief description of its functionality. The Admin routes are primarily for managing the application’s critical data and operations, while the User routes handle both public actions and authenticated user operations.
 
-| Method | Endpoint                                  | Middleware         | Controller Function               | Description                              |
-| ------ | ----------------------------------------- | ------------------ | --------------------------------- | ---------------------------------------- |
-| POST   | `/admin/login`                            | None               | adminLogin                        | Admin login functionality                |
-| POST   | `/admin/products`                         | authMiddleware("admin")  | addProduct                   | Add a new product                        |
-| GET    | `/admin/products`                         | authMiddleware("admin")  | listProducts                 | List all products                        |
-| GET    | `/admin/order`                              | authMiddleware("admin")  | getAllOrders                 | Retrieve all orders                      |
-| PATCH  | `/admin/order/:orderId/status`            | authMiddleware("admin")  | updateOrderStatus            | Update specific order status             |
-| POST   | `/admin/category`                         | authMiddleware("admin")  | createCategory               | Create a new category                    |
-| PUT    | `/admin/category/:categoryId`             | authMiddleware("admin")  | updateCategory               | Update an existing category              |
-| DELETE | `/admin/category/:categoryId`             | authMiddleware("admin")  | deleteCategory               | Delete a category                        |
-| GET    | `/admin/sales/category-wise`              | authMiddleware("admin")  | getSalesByCategory           | Get sales statistics by category         |
-| GET    | `/admin/sales/top-products`               | authMiddleware("admin")  | getTopSellingProducts        | Get top selling products                 |
-| GET    | `/admin/sales/worst-products`             | authMiddleware("admin")  | getWorstSellingProducts      | Get worst selling products               |
+## Admin Routes
 
-### User Routes
+| Method | Route                                | Middleware                  | Controller              | Description                                                                        |
+|--------|--------------------------------------|-----------------------------|-------------------------|------------------------------------------------------------------------------------|
+| POST   | /admin/login                         | None                        | adminLogin              | Authenticates an admin user and initiates a session.                               |
+| POST   | /admin/products                      | authMiddleware(["admin"])    | addProduct              | Adds a new product; note the use of "admin" middleware indicates limited access.    |
+| GET    | /admin/products                      | authMiddleware(["admin"])   | listProducts            | Retrieves a list of all products for admin overview.                               |
+| PATCH  | /admin/products/:productId           | authMiddleware(["admin"])   | updateProduct           | Updates details of an existing product identified by productId.                    |
+| DELETE | /admin/products/:productId           | authMiddleware(["admin"])   | deleteProduct           | Removes a product from the catalog using its productId.                            |
+| GET    | /admin/order                         | authMiddleware(["admin"])   | getAllOrders            | Fetches all orders made by users for administrative review.                        |
+| PATCH  | /admin/order/:orderId/status         | authMiddleware(["admin"])   | updateOrderStatus       | Updates the status of a specific order identified by orderId.                        |
+| POST   | /admin/category                      | authMiddleware(["admin"])   | createCategory          | Creates a new product category for organizing the product catalog.                 |
+| PUT    | /admin/category/:categoryId          | authMiddleware(["admin"])   | updateCategory          | Modifies an existing category identified by categoryId.                            |
+| DELETE | /admin/category/:categoryId          | authMiddleware(["admin"])   | deleteCategory          | Deletes a product category using its categoryId.                                   |
+| GET    | /admin/sales/category-wise           | authMiddleware(["admin"])   | getSalesByCategory      | Retrieves sales reports grouped by product categories.                             |
+| GET    | /admin/sales/top-products            | authMiddleware(["admin"])   | getTopSellingProducts   | Retrieves a report of the top-selling products.                                    |
+| GET    | /admin/sales/worst-products          | authMiddleware(["admin"])   | getWorstSellingProducts | Retrieves a report of the least performing products based on sales data.             |
 
-| Method | Endpoint                | Middleware         | Controller Function   | Description                              |
-| ------ | ----------------------- | ------------------ | --------------------- | ---------------------------------------- |
-| POST   | `/register`             | None               | registerUser          | User registration                        |
-| POST   | `/login`                | None               | loginUser             | User login                               |
-| GET    | `/products`             | None               | viewProducts          | View available products                  |
-| POST   | `/order`                | authMiddleware("user") | placeOrder         | Place an order                          |
-| GET    | `/order`                | authMiddleware("user") | getUserOrders      | Retrieve user's orders                   |
-| GET    | `/category`             | None               | getCategories         | Get all product categories               |
-| GET    | `/category/:categoryId` | None               | getCategoryById       | Get a specific category by its ID        |
+## User Routes
 
-*Note:* The route for getting a single category requires a preceding slash (`/category/:categoryId`). Verify route configuration if issues occur.
+| Method | Route                         | Middleware                  | Controller     | Description                                                                                |
+|--------|-------------------------------|-----------------------------|----------------|--------------------------------------------------------------------------------------------|
+| POST   | /register                     | None                        | registerUser   | Registers a new user in the system.                                                        |
+| POST   | /login                        | None                        | loginUser      | Authenticates a user and initiates a user session.                                         |
+| GET    | /products                     | None                        | viewProducts   | Displays a list of available products for browsing.                                        |
+| GET    | /product/:productId          | None                        | viewProduct    | Shows detailed information about a specific product identified by productId.               |
+| POST   | /order                        | authMiddleware(["user"])    | placeOrder     | Allows an authenticated user to place a new order.                                         |
+| GET    | /order                        | authMiddleware(["user"])    | getUserOrders  | Retrieves a list of orders placed by the authenticated user.                               |
+| GET    | /category                     | None                        | getCategories  | Fetches a list of all product categories available.                                        |
+| GET    | /category/:categoryId         | None                        | getCategoryById| Provides detailed information about a specific category identified by categoryId.          |
+
 
 ---
 
