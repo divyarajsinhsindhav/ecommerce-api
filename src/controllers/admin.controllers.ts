@@ -50,3 +50,45 @@ export const listProducts = async (_req: Request, res: Response, next: NextFunct
         next(error);
     }
 };
+
+/**
+ * Update Product
+ */
+export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { productId } = req.params;
+
+        const product = await Product.findByIdAndUpdate(
+            productId,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        if (!product) {
+            res.status(404).json({ success: false, message: "Product not found" });
+            return;
+        }
+
+        res.json({ success: true, product });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+/**
+ * Delete Product
+ */
+export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const product = await Product.findByIdAndDelete(req.params.productId);
+        if (!product) {
+            const error = new Error("Product not found");
+            (error as any).statusCode = 404;
+            throw error;
+        }
+        res.json({ success: true, product });
+    } catch (error) {
+        next(error);
+    }
+};
