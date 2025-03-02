@@ -1,6 +1,6 @@
 import express from "express";
-import { adminLogin, addProduct, listProducts } from "../controllers/admin.controllers";
-import { registerUser, loginUser, viewProducts } from "../controllers/user.controllers";
+import { adminLogin, addProduct, listProducts, updateProduct, deleteProduct } from "../controllers/admin.controllers";
+import { registerUser, loginUser, viewProducts, viewProduct } from "../controllers/user.controllers";
 import { placeOrder, getUserOrders, getAllOrders, updateOrderStatus } from "../controllers/order.controllers";
 import { getSalesByCategory, getTopSellingProducts, getWorstSellingProducts } from "../controllers/report.controllers";
 import { 
@@ -16,8 +16,10 @@ const router = express.Router();
 
 //Admin Routes
 router.post("/admin/login", adminLogin);
-router.post("/admin/products", authMiddleware(["user"]), addProduct);
+router.post("/admin/products", authMiddleware(["admin"]), addProduct);
 router.get("/admin/products", authMiddleware(["admin"]), listProducts);
+router.patch("/admin/products/:productId", authMiddleware(["admin"]), updateProduct);
+router.delete("/admin/products/:productId", authMiddleware(["admin"]), deleteProduct);
 router.get("/admin/order", authMiddleware(["admin"]), getAllOrders);
 router.patch("/admin/order/:orderId/status", authMiddleware(["admin"]), updateOrderStatus);
 router.post("/admin/category", authMiddleware(["admin"]), createCategory);
@@ -32,6 +34,7 @@ router.get("/admin/sales/worst-products", authMiddleware(["admin"]), getWorstSel
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/products", viewProducts);
+router.get("/product/:productId", viewProduct);
 router.post("/order", authMiddleware(["user"]), placeOrder);
 router.get("/order", authMiddleware(["user"]), getUserOrders);
 router.get("/category", getCategories);
