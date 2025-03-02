@@ -62,7 +62,7 @@ The `authMiddleware` function is utilized to protect sensitive routes. Replace `
 
 1. Clone the repository.
 2. Run `npm install` to install dependencies.
-3. Use `npm start` or your preferred method to run the server.
+3. Start the server using `"npx nodemon --exec "ts-node src/server.ts"`.
 
 ---
 
